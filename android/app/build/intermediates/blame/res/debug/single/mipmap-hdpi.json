@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/rolysegara/ROLY/VISIONET/BOOTCAMP_RN/TodoApp/android/app/build/intermediates/res/merged/debug/mipmap-hdpi/ic_launcher.png",
+        "source": "/Users/rolysegara/ROLY/VISIONET/BOOTCAMP_RN/TodoApp/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/rolysegara/ROLY/VISIONET/BOOTCAMP_RN/ToDoApp/android/app/build/intermediates/res/merged/debug/mipmap-hdpi/ic_launcher.png",
+        "source": "/Users/rolysegara/ROLY/VISIONET/BOOTCAMP_RN/ToDoApp/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    }
+]

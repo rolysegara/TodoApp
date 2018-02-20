@@ -154,6 +154,7 @@ export default class App extends Component {
             onSubmitEditing={() => this.addData()}
             placeholder='Input text here..'
             value={this.state.text}
+            underlineColorAndroid='transparent'
           />
         </View>
         <FlatList
@@ -246,8 +247,8 @@ class TaskItem extends Component {
         >
           <Image 
             source={!this.state.isCheck? 
-              require('./asset/image/checkbox-blank-outline.png') :
-              require('./asset/image/checkbox-marked-outline.png')}
+              require('./app/asset/image/checkbox-blank-outline.png') :
+              require('./app/asset/image/checkbox-marked-outline.png')}
           />
         </TouchableOpacity>
         <View
@@ -299,7 +300,7 @@ class TaskItem extends Component {
           onPress={() => this.props.deleteItem()}
         >
           <Image 
-            source={require('./asset/image/delete-forever.png')}
+            source={require('./app/asset/image/delete-forever.png')}
           />
         </TouchableOpacity>
 

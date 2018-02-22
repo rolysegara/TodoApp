@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View } from 'react-native'
+import { View, Platform, TouchableOpacity } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { 
     Container, 
@@ -13,8 +13,13 @@ import {
     Button,
     Text,
     Right,
+    Picker,
     Thumbnail
 } from 'native-base';
+import { DatePickerDialog } from 'react-native-datepicker-dialog'
+import moment from 'moment';
+
+//const Item = Picker.Item; 
 
 export default class RegisterScreen extends React.Component {
 
@@ -29,6 +34,44 @@ export default class RegisterScreen extends React.Component {
         },
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+          selected2: undefined,
+          dateText: '',
+          dateHolder: null
+        };
+      }
+      
+    onValueChange2(value: string) {
+    this.setState({
+        selected2: value
+    });
+    }
+
+    showDatePicker(){
+        let dateHolder = this.state.dateHolder
+    
+        if(!dateHolder || dateHolder == null){
+          dateHolder = new Date()
+          this.setState({
+            dateHolder: dateHolder 
+          })
+        }
+    
+        this.refs.DatePickerDialog.open({
+          date: dateHolder
+        })
+    }
+
+    onDatePicked(date){
+        this.setState({dateText: ''})
+        this.setState({
+          dobDate: date,
+          dateText: moment(date).format('DD-MMM-YYYY'),
+        })  
+    }
+
     render() {
         return (
             <LinearGradient 
@@ -42,7 +85,7 @@ export default class RegisterScreen extends React.Component {
                 <Container>
                     <View 
                         style={{
-                            flex: 0.5,
+                            flex: 1,
                             backgroundColor: 'rgba(255, 255, 255, 0.3)',
                             flexDirection: 'column',
                             margin: 20,
@@ -54,8 +97,19 @@ export default class RegisterScreen extends React.Component {
                                 rounded 
                                 style={{
                                     marginBottom: 20,
-                                    backgroundColor: '#FFC107'}}>
+                                    backgroundColor: 'rgba(255, 255, 255, 0.75)'}}>
                                 <Icon 
+                                    active name='mail'
+                                    style={{color:'rgba(101, 31, 255, 0.75)'}} />
+                                <Input 
+                                    placeholder='E-mail'/>
+                            </Item>
+                            <Item 
+                                rounded
+                                style={{
+                                    marginBottom: 20,
+                                    backgroundColor: 'rgba(255, 255, 255, 0.75)'}}>
+                                <Icon
                                     active name='contact'
                                     style={{color:'rgba(101, 31, 255, 0.75)'}} />
                                 <Input 
@@ -65,12 +119,48 @@ export default class RegisterScreen extends React.Component {
                                 rounded
                                 style={{
                                     marginBottom: 20,
-                                    backgroundColor: '#FFC107'}}>
+                                    backgroundColor: 'rgba(255, 255, 255, 0.75)'}}>
                                 <Icon
                                     active name='key'
                                     style={{color:'rgba(101, 31, 255, 0.75)'}} />
                                 <Input 
                                     placeholder='Password'/>
+                            </Item>
+                            <Item 
+                                rounded
+                                style={{
+                                    marginBottom: 20,
+                                    backgroundColor: 'rgba(255, 255, 255, 0.75)'}}>
+                                <Icon
+                                    active name='md-male'
+                                    style={{color:'rgba(101, 31, 255, 0.75)'}} />
+                                <Picker
+                                    mode='dialog'
+                                    placeholder='Select Your Gender'
+                                    note={false}
+                                    selectedValue={this.state.selected2}
+                                    onValueChange={this.onValueChange2.bind(this)}
+                                    style={{ width:(Platform.OS === 'ios') ? undefined : '90%' }}
+                                    >
+                                    <Item label='Male' value='Male' />
+                                    <Item label='Female' value='Female' />
+                                </Picker>
+                            </Item>
+                            <Item 
+                                rounded                               
+                                onPress={() => this.showDatePicker()}
+                                style={{
+                                    marginBottom: 20,
+                                    backgroundColor: 'rgba(255, 255, 255, 0.75)'}}>
+                                <Icon
+                                    active name='calendar'
+                                    style={{color:'rgba(101, 31, 255, 0.75)'}} />
+
+                                <Input 
+                                    placeholder='Date of Birth'
+                                    editable={false}>
+                                    {this.state.dateText}    
+                                </Input>
                             </Item>
                             <Button 
                                 rounded 
@@ -91,7 +181,7 @@ export default class RegisterScreen extends React.Component {
                                 primary
                                 style={{alignSelf: 'flex-end'}}
                                 onPress={() => {
-                                    this.props.navigation.navigate('RegisterScreen')
+                                    this.props.navigation.navigate('LoginScreen')
                                 }}
                                 >
                                 <Text 
@@ -103,6 +193,8 @@ export default class RegisterScreen extends React.Component {
                     </View>
 
                 </Container>
+
+                <DatePickerDialog ref="DatePickerDialog" onDatePicked={this.onDatePicked.bind(this)} />      
             </LinearGradient>
         )
     }

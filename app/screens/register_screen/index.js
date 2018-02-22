@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Platform, TouchableOpacity } from 'react-native'
+import { View, Platform, TouchableOpacity, Keyboard } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { 
     Container, 
@@ -43,7 +43,7 @@ export default class RegisterScreen extends React.Component {
         };
       }
       
-    onValueChange2(value: string) {
+    onValueChange2(value) {
     this.setState({
         selected2: value
     });
@@ -146,21 +146,23 @@ export default class RegisterScreen extends React.Component {
                                     <Item label='Female' value='Female' />
                                 </Picker>
                             </Item>
-                            <Item 
-                                rounded                               
-                                onPress={() => this.showDatePicker()}
+                            <Item
+                                rounded    
                                 style={{
                                     marginBottom: 20,
-                                    backgroundColor: 'rgba(255, 255, 255, 0.75)'}}>
+                                    backgroundColor: 'rgba(255, 255, 255, 0.75)'}}
+                                >
                                 <Icon
                                     active name='calendar'
                                     style={{color:'rgba(101, 31, 255, 0.75)'}} />
 
                                 <Input 
                                     placeholder='Date of Birth'
-                                    editable={false}>
-                                    {this.state.dateText}    
-                                </Input>
+                                    value={this.state.dateText}                   
+                                onFocus={() => {
+                                    Keyboard.dismiss()
+                                    this.showDatePicker()}
+                                } />
                             </Item>
                             <Button 
                                 rounded 
